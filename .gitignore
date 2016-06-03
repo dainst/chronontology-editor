@@ -3,3 +3,5 @@ node_modules
 typings
 lib
 fonts
+npm-debug.log
+*iml
