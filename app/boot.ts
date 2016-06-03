@@ -12,7 +12,7 @@ import {ConfigLoader} from "idai-components-2/idai-components-2";
 import {RelationsProvider} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
 import {MD} from "idai-components-2/idai-components-2";
-import { ROUTER_PROVIDERS } from '@angular/router';
+import { ROUTER_PROVIDERS,RouteSegment } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 bootstrap(AppComponent, [

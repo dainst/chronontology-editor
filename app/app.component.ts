@@ -11,7 +11,7 @@ import {ObjectEditWrapperComponent} from './object-edit-wrapper.component';
     directives: [ROUTER_DIRECTIVES]
 })
 @Routes([
-    {path: '/edit', component: ObjectEditWrapperComponent},
+    {path: '/edit/:id', component: ObjectEditWrapperComponent},
 ])
 export class AppComponent {
     

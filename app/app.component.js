@@ -37,7 +37,7 @@ System.register(['@angular/core', '@angular/router', './object-edit-wrapper.comp
                         directives: [router_1.ROUTER_DIRECTIVES]
                     }),
                     router_1.Routes([
-                        { path: '/edit', component: object_edit_wrapper_component_1.ObjectEditWrapperComponent },
+                        { path: '/edit/:id', component: object_edit_wrapper_component_1.ObjectEditWrapperComponent },
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
