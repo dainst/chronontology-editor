@@ -5,3 +5,7 @@ lib
 fonts
 npm-debug.log
 *iml
+app/**/*.js
+app/**/*.js.map
+test/**/*.js
+test/**/*.js.map

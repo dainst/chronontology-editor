@@ -1,7 +1,6 @@
 import {Component, OnInit, Inject} from '@angular/core';
 import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
-import {ObjectEditComponent} from 'idai-components-2/idai-components-2';
-import {ConfigLoader} from 'idai-components-2/idai-components-2'
+import {ObjectEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
 import {Datastore} from 'idai-components-2/idai-components-2'
 import {OBJECTS} from "./sample-objects";
 
@@ -16,8 +15,7 @@ import {OBJECTS} from "./sample-objects";
 })
 export class ObjectEditWrapperComponent implements OnInit {
 
-    private static PROJECT_CONFIGURATION_PATH = 'config/Configuration.json';
-    private static RELATIONS_CONFIGURATION_PATH = 'config/Relations.json';
+
     
     private id;
     private selectedObject;
@@ -25,9 +23,9 @@ export class ObjectEditWrapperComponent implements OnInit {
     private relationsConfiguration;
 
     constructor(
-        private configLoader:ConfigLoader,
         private datastore: Datastore,
-        private routeSegment: RouteSegment) {
+        private routeSegment: RouteSegment,
+        private configLoader:ConfigLoader) {
 
         this.id=routeSegment.getParam('id');
     }
@@ -35,21 +33,12 @@ export class ObjectEditWrapperComponent implements OnInit {
 
     ngOnInit() {
         this.loadSampleData();
-
-        var promises = [];
-        promises.push(this.configLoader.getProjectConfiguration(ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH));
-        promises.push(this.configLoader.getRelationsConfiguration(ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH));
-
-        Promise.all(promises).then(configs=>{
-
-            this.projectConfiguration=configs[0];
-            this.relationsConfiguration=configs[1];
-
-            this.datastore.get(this.id).then((entity)=> {
-                this.selectedObject = JSON.parse(JSON.stringify(entity));
-            });
-
-        }, (errs)=>{console.error('errs: ',errs)});
+        console.log("get")
+        this.datastore.get(this.id).then((entity)=> {
+            this.configLoader.setProjectConfiguration('config/Configuration.json');
+            this.configLoader.setRelationsConfiguration('config/Relations.json');
+            this.selectedObject = JSON.parse(JSON.stringify(entity));
+        });
     }
 
     loadSampleData(): void {

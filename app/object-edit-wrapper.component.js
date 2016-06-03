@@ -10,7 +10,7 @@ System.register(['@angular/core', '@angular/router', 'idai-components-2/idai-com
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, router_1, idai_components_2_1, idai_components_2_2, idai_components_2_3, sample_objects_1;
+    var core_1, router_1, idai_components_2_1, idai_components_2_2, sample_objects_1;
     var ObjectEditWrapperComponent;
     return {
         setters:[
@@ -23,32 +23,27 @@ System.register(['@angular/core', '@angular/router', 'idai-components-2/idai-com
             function (idai_components_2_1_1) {
                 idai_components_2_1 = idai_components_2_1_1;
                 idai_components_2_2 = idai_components_2_1_1;
-                idai_components_2_3 = idai_components_2_1_1;
             },
             function (sample_objects_1_1) {
                 sample_objects_1 = sample_objects_1_1;
             }],
         execute: function() {
             ObjectEditWrapperComponent = (function () {
-                function ObjectEditWrapperComponent(configLoader, datastore, routeSegment) {
-                    this.configLoader = configLoader;
+                function ObjectEditWrapperComponent(datastore, routeSegment, configLoader) {
                     this.datastore = datastore;
                     this.routeSegment = routeSegment;
+                    this.configLoader = configLoader;
                     this.id = routeSegment.getParam('id');
                 }
                 ObjectEditWrapperComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this.loadSampleData();
-                    var promises = [];
-                    promises.push(this.configLoader.getProjectConfiguration(ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH));
-                    promises.push(this.configLoader.getRelationsConfiguration(ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH));
-                    Promise.all(promises).then(function (configs) {
-                        _this.projectConfiguration = configs[0];
-                        _this.relationsConfiguration = configs[1];
-                        _this.datastore.get(_this.id).then(function (entity) {
-                            _this.selectedObject = JSON.parse(JSON.stringify(entity));
-                        });
-                    }, function (errs) { console.error('errs: ', errs); });
+                    console.log("get");
+                    this.datastore.get(this.id).then(function (entity) {
+                        _this.configLoader.setProjectConfiguration('config/Configuration.json');
+                        _this.configLoader.setRelationsConfiguration('config/Relations.json');
+                        _this.selectedObject = JSON.parse(JSON.stringify(entity));
+                    });
                 };
                 ObjectEditWrapperComponent.prototype.loadSampleData = function () {
                     for (var _i = 0, OBJECTS_1 = sample_objects_1.OBJECTS; _i < OBJECTS_1.length; _i++) {
@@ -56,15 +51,13 @@ System.register(['@angular/core', '@angular/router', 'idai-components-2/idai-com
                         this.datastore.update(item);
                     }
                 };
-                ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH = 'config/Configuration.json';
-                ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH = 'config/Relations.json';
                 ObjectEditWrapperComponent = __decorate([
                     core_1.Component({
                         selector: 'object-edit-wrapper',
                         templateUrl: 'templates/object-edit-wrapper.html',
                         directives: [router_1.ROUTER_DIRECTIVES, idai_components_2_1.ObjectEditComponent]
                     }), 
-                    __metadata('design:paramtypes', [idai_components_2_2.ConfigLoader, idai_components_2_3.Datastore, router_1.RouteSegment])
+                    __metadata('design:paramtypes', [idai_components_2_2.Datastore, router_1.RouteSegment, idai_components_2_1.ConfigLoader])
                 ], ObjectEditWrapperComponent);
                 return ObjectEditWrapperComponent;
             }());

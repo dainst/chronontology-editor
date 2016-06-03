@@ -1,5 +1,5 @@
-import {Component, OnInit, Inject} from '@angular/core';
-import { Router,ROUTER_DIRECTIVES, Routes } from '@angular/router';
+import {Component} from '@angular/core';
+import { ROUTER_DIRECTIVES, Routes } from '@angular/router';
 import {ObjectEditWrapperComponent} from './object-edit-wrapper.component';
 
 /**
@@ -14,5 +14,5 @@ import {ObjectEditWrapperComponent} from './object-edit-wrapper.component';
     {path: '/edit/:id', component: ObjectEditWrapperComponent},
 ])
 export class AppComponent {
-    
+    constructor() {}
 }

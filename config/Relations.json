@@ -1,6 +1,14 @@
-{ "relations" : [
-
-  {"field": "Belongs to", "inverse": "Includes", "label": "Belongs to"},
-  {"field": "Includes", "inverse": "Belongs to", "label": "Includes"}
-]
+{
+  "relations":[
+    {
+      "field":"Belongs to",
+      "inverse":"Includes",
+      "label":"Enthalten in"
+    },
+    {
+      "field":"Includes",
+      "inverse":"Belongs to",
+      "label":"Enthält"
+    }
+  ]
 }
