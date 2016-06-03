@@ -9,7 +9,6 @@ import {Datastore} from "idai-components-2/idai-components-2";
 import {Messages} from "idai-components-2/idai-components-2";
 import {MemoryDatastore} from "./memory-datastore";
 import {ConfigLoader} from "idai-components-2/idai-components-2";
-import {RelationsProvider} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
 import {MD} from "idai-components-2/idai-components-2";
 import { ROUTER_PROVIDERS,RouteSegment } from '@angular/router';
@@ -22,7 +21,6 @@ bootstrap(AppComponent, [
     provide(Datastore, { useClass: MemoryDatastore }),
     provide(Messages, { useClass: Messages }),
     provide(ConfigLoader, {useClass: ConfigLoader}),
-    provide(RelationsProvider, {useClass: RelationsProvider}),
     provide(PersistenceManager, {useClass: PersistenceManager}),
     provide(ConfigLoader, {useClass: ConfigLoader}),
     provide(MD, {useClass: MD})

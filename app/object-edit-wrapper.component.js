@@ -39,13 +39,16 @@ System.register(['@angular/core', '@angular/router', 'idai-components-2/idai-com
                 ObjectEditWrapperComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this.loadSampleData();
-                    this.configLoader.getProjectConfiguration().then(function (pc) {
-                        _this.projectConfiguration = pc;
-                        console.log("ID: " + _this.id);
+                    var promises = [];
+                    promises.push(this.configLoader.getProjectConfiguration(ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH));
+                    promises.push(this.configLoader.getRelationsConfiguration(ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH));
+                    Promise.all(promises).then(function (configs) {
+                        _this.projectConfiguration = configs[0];
+                        _this.relationsConfiguration = configs[1];
                         _this.datastore.get(_this.id).then(function (entity) {
                             _this.selectedObject = JSON.parse(JSON.stringify(entity));
                         });
-                    });
+                    }, function (errs) { console.error('errs: ', errs); });
                 };
                 ObjectEditWrapperComponent.prototype.loadSampleData = function () {
                     for (var _i = 0, OBJECTS_1 = sample_objects_1.OBJECTS; _i < OBJECTS_1.length; _i++) {
@@ -53,6 +56,8 @@ System.register(['@angular/core', '@angular/router', 'idai-components-2/idai-com
                         this.datastore.update(item);
                     }
                 };
+                ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH = 'config/Configuration.json';
+                ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH = 'config/Relations.json';
                 ObjectEditWrapperComponent = __decorate([
                     core_1.Component({
                         selector: 'object-edit-wrapper',

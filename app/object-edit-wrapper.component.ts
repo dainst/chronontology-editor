@@ -16,9 +16,13 @@ import {OBJECTS} from "./sample-objects";
 })
 export class ObjectEditWrapperComponent implements OnInit {
 
+    private static PROJECT_CONFIGURATION_PATH = 'config/Configuration.json';
+    private static RELATIONS_CONFIGURATION_PATH = 'config/Relations.json';
+    
     private id;
     private selectedObject;
     private projectConfiguration;
+    private relationsConfiguration;
 
     constructor(
         private configLoader:ConfigLoader,
@@ -32,14 +36,20 @@ export class ObjectEditWrapperComponent implements OnInit {
     ngOnInit() {
         this.loadSampleData();
 
-        this.configLoader.getProjectConfiguration().then(pc=>{
-           this.projectConfiguration=pc;
+        var promises = [];
+        promises.push(this.configLoader.getProjectConfiguration(ObjectEditWrapperComponent.PROJECT_CONFIGURATION_PATH));
+        promises.push(this.configLoader.getRelationsConfiguration(ObjectEditWrapperComponent.RELATIONS_CONFIGURATION_PATH));
 
-            console.log("ID: "+this.id);
+        Promise.all(promises).then(configs=>{
+
+            this.projectConfiguration=configs[0];
+            this.relationsConfiguration=configs[1];
+
             this.datastore.get(this.id).then((entity)=> {
                 this.selectedObject = JSON.parse(JSON.stringify(entity));
             });
-        });
+
+        }, (errs)=>{console.error('errs: ',errs)});
     }
 
     loadSampleData(): void {
