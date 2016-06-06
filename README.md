@@ -16,3 +16,6 @@ objects for the period type have to be existent.
 Objects can be accessed via
 
 1. http://localhost:8084/#/edit/object-id
+
+where object-id does only include the string after /period/, i.e. 
+abc for /period/abc
