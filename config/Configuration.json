@@ -4,6 +4,22 @@
       "type": "Period",
       "fields": [
         {
+          "field": "prefLabel"
+        },
+        {
+          "field": "names"
+        },
+        {
+          "field": "types"
+        },
+        {
+          "field": "description",
+          "multiline" : "true"
+        },
+        {
+          "field": "hasTimespan"
+        },
+        {
           "field": "provenance"
         }
       ]

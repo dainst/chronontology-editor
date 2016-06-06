@@ -1,8 +1,4 @@
 <div class="container-fluid" id="app">
-
-    <p>
-        -
-    </p>
     <ul>
         <li *ngFor="let item of objects; let i=index"><button (click)="clicked(item.id)">Item nr. {{i}}</button></li>
     </ul>
