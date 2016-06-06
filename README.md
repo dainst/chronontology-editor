@@ -10,11 +10,9 @@ npm run server
 ```
 
 The dev server will listen on http://localhost:8084
+It requires jeremy to run on http://localhost:4567. Inside jeremy,
+objects for the period type have to be existent.
 
-Demo objects can be accessed via
+Objects can be accessed via
 
-1. http://localhost:8084/#/edit/1
-1. http://localhost:8084/#/edit/2
-1. http://localhost:8084/#/edit/3
-1. http://localhost:8084/#/edit/4
-1. http://localhost:8084/#/edit/5
+1. http://localhost:8084/#/edit/object-id
