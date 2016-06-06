@@ -3,11 +3,15 @@ var sass = require('gulp-sass');
 var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var typescript = require('gulp-typescript');
+var browserSync = require('browser-sync');
 var archiver = require('archiver');
 var fs = require('fs');
+var url = require('url');
 var path = require('path');
 var pkg = require('./package.json');
 var webserver = require('gulp-webserver');
+var modRewrite = require('connect-modrewrite');
+var proxy = require('proxy-middleware');
 
 // compile sass and concatenate to single css file in build dir
 gulp.task('convert-sass', function() {
@@ -26,13 +30,20 @@ function watch() {
 }
 
 gulp.task('webserver-watch', function() {
-	gulp.src('./') // Yes, ./ is right. While developing, for convenience reasons
-                   // e2e tests should run against the base dir,
-                   // instead the dist dir. Only in ci the dist has to be tested.
-        .pipe(webserver({
-			fallback: 'index.html',
-			port: 8084
-		}));
+	var proxyOptions = url.parse("http://localhost:4567");
+	proxyOptions.route = '/data';
+
+	browserSync({
+		server: {
+			baseDir: './',
+			middleware: [
+				proxy(proxyOptions),
+				// rewrite for AngularJS HTML5 mode, redirect all non-file urls to index.html
+				modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.jpg|\\.gif|\\.json|\\.woff2|\\.woff|\\.ttf$ /index.html [L]']),
+			]
+		},
+		port: 8084
+	});
 	watch();
 });
 

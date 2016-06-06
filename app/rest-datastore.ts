@@ -2,12 +2,15 @@ import {Entity} from "idai-components-2/idai-components-2";
 import {Datastore} from "idai-components-2/idai-components-2";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
+import {Http} from '@angular/http';
 
 /**
  * @author Daniel de Oliveira
  */
 @Injectable()
-export class MemoryDatastore implements Datastore {
+export class RestDatastore implements Datastore {
+
+    constructor(private http:Http) { }
 
     private static IDAIFIELDOBJECT = 'idai-field-object';
     private static FULLTEXT = 'fulltext';
@@ -20,8 +23,6 @@ export class MemoryDatastore implements Datastore {
         return undefined;
     }
     
-    constructor(){};
-
     public create(object:Entity):Promise<string> {
 
         return new Promise((resolve, reject) => {
@@ -44,8 +45,10 @@ export class MemoryDatastore implements Datastore {
     public get(id:string):Promise<Entity> {
 
         if (this.objectCache[id]) {
+            console.log("get cached object")
             return new Promise((resolve, reject) => resolve(this.objectCache[id]));
         } else {
+            console.log("fetch object")
             return this.fetchObject(id);
         }
     }
@@ -92,7 +95,21 @@ export class MemoryDatastore implements Datastore {
     private fetchObject(id:string): Promise<Entity> {
 
         return new Promise((resolve, reject) => {
-            resolve();
+
+            this.http.get('/data/period/'+id)
+                .subscribe(
+                    data => {
+                        var d=JSON.parse(data['_body']);
+                        d['resource'].type='Period';
+
+                        var r = d['resource']
+                        console.log("r",r)
+                        resolve(r)
+                    },
+                    err => console.error(err)
+                );
+
+
         });
     }
 

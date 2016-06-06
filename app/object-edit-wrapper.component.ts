@@ -8,19 +8,14 @@ import {OBJECTS} from "./sample-objects";
 
 @Component({
     selector: 'object-edit-wrapper',
-
     templateUrl: 'templates/object-edit-wrapper.html',
 
     directives: [ ROUTER_DIRECTIVES, ObjectEditComponent ]
 })
 export class ObjectEditWrapperComponent implements OnInit {
 
-
-    
     private id;
     private selectedObject;
-    private projectConfiguration;
-    private relationsConfiguration;
 
     constructor(
         private datastore: Datastore,
@@ -30,13 +25,16 @@ export class ObjectEditWrapperComponent implements OnInit {
         this.id=routeSegment.getParam('id');
     }
 
+    private setConfig(){
+        this.configLoader.setProjectConfiguration('config/Configuration.json');
+        this.configLoader.setRelationsConfiguration('config/Relations.json');
+    }
 
     ngOnInit() {
         this.loadSampleData();
-        console.log("get")
+        
         this.datastore.get(this.id).then((entity)=> {
-            this.configLoader.setProjectConfiguration('config/Configuration.json');
-            this.configLoader.setRelationsConfiguration('config/Relations.json');
+            this.setConfig();
             this.selectedObject = JSON.parse(JSON.stringify(entity));
         });
     }

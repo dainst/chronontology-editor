@@ -7,7 +7,7 @@ import {HTTP_PROVIDERS} from '@angular/http';
 import {provide, enableProdMode} from '@angular/core';
 import {Datastore} from "idai-components-2/idai-components-2";
 import {Messages} from "idai-components-2/idai-components-2";
-import {MemoryDatastore} from "./memory-datastore";
+import {RestDatastore} from "./rest-datastore";
 import {ConfigLoader} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
 import {MD} from "idai-components-2/idai-components-2";
@@ -18,7 +18,7 @@ bootstrap(AppComponent, [
     ROUTER_PROVIDERS,
     HTTP_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy }),
-    provide(Datastore, { useClass: MemoryDatastore }),
+    provide(Datastore, { useClass: RestDatastore }),
     provide(Messages, { useClass: Messages }),
     provide(ConfigLoader, {useClass: ConfigLoader}),
     provide(PersistenceManager, {useClass: PersistenceManager}),
