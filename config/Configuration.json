@@ -4,7 +4,8 @@
       "type": "Period",
       "fields": [
         {
-          "field": "prefLabel"
+          "field": "prefLabel",
+          "label": "most common name"
         },
         {
           "field" : "names",
