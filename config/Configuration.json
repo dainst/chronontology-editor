@@ -7,7 +7,12 @@
           "field": "prefLabel"
         },
         {
-          "field": "names"
+          "field" : "names",
+          "array" : "true",
+          "fields" : [
+            { "field" : "name" },
+            { "field" : "language" }
+          ]
         },
         {
           "field": "types"
