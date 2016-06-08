@@ -8,9 +8,6 @@
           "multiline" : "true"
         },
         {
-          "field": "hasTimespan"
-        },
-        {
           "field": "provenance"
         },
         {
