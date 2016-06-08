@@ -4,17 +4,6 @@
       "type": "Period",
       "fields": [
         {
-          "field" : "names",
-          "array" : "true",
-          "fields" : [
-            { "field" : "name" },
-            { "field" : "language" }
-          ]
-        },
-        {
-          "field": "types"
-        },
-        {
           "field": "description",
           "multiline" : "true"
         },

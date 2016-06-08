@@ -101,9 +101,10 @@ export class RestDatastore implements Datastore {
                     data => {
                         var d=JSON.parse(data['_body']);
                         d['resource'].type='Period';
-
-                        var r = d['resource']
-                        console.log("r",r)
+                        d['resource'].id=d['@id'];
+                        
+                        var r = d['resource'];
+                        console.log("r",r);
                         resolve(r)
                     },
                     err => console.error(err)
