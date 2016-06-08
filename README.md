@@ -6,7 +6,7 @@
 npm install
 npm run build
 cp config/Configuration.json.template config/Configuration.json
-npm run server
+npm start
 ```
 
 The dev server will listen on http://localhost:8084

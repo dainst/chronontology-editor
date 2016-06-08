@@ -10,6 +10,7 @@
     "test:loop": "karma start karma.conf",
     "test": "karma start karma.conf.js --single-run",
     "server": "gulp webserver-watch",
+    "start" : "npm run server",
     "postinstall": "typings install"
   },
   "repository": {
