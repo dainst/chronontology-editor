@@ -12,6 +12,10 @@
         },
         {
           "field": "provenance"
+        },
+        {
+          "field":"types",
+          "array":true
         }
       ]
     }
