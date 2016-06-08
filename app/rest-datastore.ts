@@ -96,7 +96,11 @@ export class RestDatastore implements Datastore {
 
         return new Promise((resolve, reject) => {
 
-            this.http.get('/data/period/'+id)
+            var url= "data";
+            if (id.indexOf("period")==-1)
+                url= "data/period/"
+
+            this.http.get(url+id)
                 .subscribe(
                     data => {
                         var d=JSON.parse(data['_body']);
