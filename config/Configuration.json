@@ -4,6 +4,13 @@
       "type": "Period",
       "fields": [
         {
+          "field": "names",
+          "localized" : "true",
+          "inner" : {
+            "array" : true
+          }
+        },
+        {
           "field": "description",
           "multiline" : "true"
         },
