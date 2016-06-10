@@ -10,6 +10,9 @@ import {Messages} from "idai-components-2/idai-components-2";
 import {RestDatastore} from "./rest-datastore";
 import {ConfigLoader} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
+import {LoadAndSaveService} from "idai-components-2/idai-components-2";
+import {LoadAndSaveInterceptor} from "idai-components-2/idai-components-2";
+import {AppLoadAndSaveInterceptor} from "./app-load-and-save-interceptor";
 import {MD} from "idai-components-2/idai-components-2";
 import { ROUTER_PROVIDERS,RouteSegment } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
@@ -23,5 +26,7 @@ bootstrap(AppComponent, [
     provide(ConfigLoader, {useClass: ConfigLoader}),
     provide(PersistenceManager, {useClass: PersistenceManager}),
     provide(ConfigLoader, {useClass: ConfigLoader}),
+    provide(LoadAndSaveService, {useClass: LoadAndSaveService}),
+    provide(LoadAndSaveInterceptor, {useClass: AppLoadAndSaveInterceptor}),
     provide(MD, {useClass: MD})
 ]);
