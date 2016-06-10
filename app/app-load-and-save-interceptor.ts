@@ -8,14 +8,16 @@ import {Entity} from "idai-components-2/idai-components-2"
 @Injectable()
 export class AppLoadAndSaveInterceptor extends LoadAndSaveInterceptor {
 
-    interceptLoad(object:Entity) : string {
+    interceptLoad(object:Entity) : Entity {
         object.type='Period';
-        return undefined;
+        return object;
     }
 
-    interceptSave(object:Entity) : string {
-        // delete object.type;
-        // delete object['@id'];
-        return undefined;
+    interceptSave(object:Entity) : Entity {
+        var newO = <Entity>JSON.parse(JSON.stringify(object));
+        
+        delete newO.type;
+        delete newO['@id'];
+        return newO;
     }
 }
