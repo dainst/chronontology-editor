@@ -1,6 +1,25 @@
 {
   "relations":[
     {
+      "field":"hasPart",
+      "inverse":"isPartOf",
+      "label":"Has Part"
+    },
+      "field":"isPartOf",
+      "inverse":"hasPart",
+      "label":"Is part of"
+    },
+    {
+      "field":"follows",
+      "inverse":"isFollowedBy",
+      "label":"Follows"
+    },
+      "field":"isFollowedBy",
+      "inverse":"follows",
+      "label":"Is followed by"
+    },
+
+    {
       "field":"meetsInTimeWith",
       "inverse":"isMetInTimeBy",
       "label":"Meets in time with"
@@ -10,7 +29,6 @@
       "inverse":"meetsInTimeWith",
       "label":"Is met in time by"
     },
-
     {
       "field":"occursDuring",
       "inverse":"includes",
@@ -21,7 +39,6 @@
       "inverse":"occursDuring",
       "label":"Includes"
     },
-
     {
       "field":"occursBefore",
       "inverse":"occursAfter",
@@ -32,14 +49,11 @@
       "inverse":"occursBefore",
       "label":"Occurs after"
     },
-
     {
       "field":"isEqualInTimeTo",
       "inverse":"isEqualInTimeTo",
       "label":"Is equal in time to"
     },
-
-
     {
       "field":"starts",
       "inverse":"isStartedBy",
@@ -50,7 +64,6 @@
       "inverse":"starts",
       "label":"Is started by"
     },
-
     {
       "field":"finishes",
       "inverse":"isFinishedBy",
@@ -61,7 +74,6 @@
       "inverse":"finishes",
       "label":"Is finished by"
     },
-
     {
       "field":"overlapsInTimeWith",
       "inverse":"isOverlappedInTimeBy",
@@ -70,7 +82,7 @@
     {
       "field":"isOverlappedInTimeBy",
       "inverse":"overlapsInTimeWith",
-      "label":"Is Overlapped in time by"
+      "label":"Is overlapped in time by"
     }
   ]
 }
