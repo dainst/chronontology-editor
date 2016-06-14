@@ -5,6 +5,7 @@
       "inverse":"isPartOf",
       "label":"Has Part"
     },
+    {
       "field":"isPartOf",
       "inverse":"hasPart",
       "label":"Is part of"
@@ -14,6 +15,7 @@
       "inverse":"isFollowedBy",
       "label":"Follows"
     },
+    {
       "field":"isFollowedBy",
       "inverse":"follows",
       "label":"Is followed by"
