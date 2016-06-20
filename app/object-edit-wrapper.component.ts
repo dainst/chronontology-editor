@@ -1,21 +1,23 @@
-import {Component, OnInit, Inject} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
-import {ObjectEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
+import {DocumentEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
 import {Datastore} from 'idai-components-2/idai-components-2'
-import {OBJECTS} from "./sample-objects";
+import {DOCS} from "./sample-objects";
 
 
-
+/**
+ * @author: Daniel de Oliveira
+ */
 @Component({
     selector: 'object-edit-wrapper',
     templateUrl: 'templates/object-edit-wrapper.html',
 
-    directives: [ ROUTER_DIRECTIVES, ObjectEditComponent ]
+    directives: [ ROUTER_DIRECTIVES, DocumentEditComponent ]
 })
 export class ObjectEditWrapperComponent implements OnInit {
 
     private id;
-    private selectedObject;
+    private selectedDocument;
 
     constructor(
         private datastore: Datastore,
@@ -33,15 +35,15 @@ export class ObjectEditWrapperComponent implements OnInit {
     ngOnInit() {
         this.loadSampleData();
         
-        this.datastore.get(this.id).then((entity)=> {
+        this.datastore.get("/period/"+this.id).then((document)=> {
             this.setConfig();
-            this.selectedObject = JSON.parse(JSON.stringify(entity));
+            this.selectedDocument = JSON.parse(JSON.stringify(document));
         });
     }
 
     loadSampleData(): void {
-        for (var item of OBJECTS) {
-            this.datastore.update(item);
+        for (var doc of DOCS) {
+            this.datastore.update(doc);
         }
     }
 }

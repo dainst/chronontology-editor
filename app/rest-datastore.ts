@@ -30,8 +30,8 @@ export class RestDatastore implements Datastore {
         });
     }
 
-    public update(entity:Entity):Promise<any> {
-        this.objectCache[entity.id]=entity;
+    public update(document:Entity):Promise<any> {
+        this.objectCache[document['resource']['@id']]=document;
         return new Promise((resolve, reject) => {
             resolve();
         });
@@ -42,14 +42,14 @@ export class RestDatastore implements Datastore {
         return this.fetchObject(id);
     }
 
-    public get(id:string):Promise<Entity> {
+    public get(resourceId:string):Promise<Entity> {
 
-        if (this.objectCache[id]) {
+        if (this.objectCache[resourceId]) {
             console.log("get cached object")
-            return new Promise((resolve, reject) => resolve(this.objectCache[id]));
+            return new Promise((resolve, reject) => resolve(this.objectCache[resourceId]));
         } else {
             console.log("fetch object")
-            return this.fetchObject(id);
+            return this.fetchObject(resourceId);
         }
     }
 
@@ -92,21 +92,19 @@ export class RestDatastore implements Datastore {
         });
     }
 
-    private fetchObject(id:string): Promise<Entity> {
+    private fetchObject(resourceId:string): Promise<Entity> {
 
         return new Promise((resolve, reject) => {
 
             var url= "data";
-            if (id.indexOf("period")==-1)
-                url= "data/period/"
 
-            this.http.get(url+id)
+            this.http.get(url+resourceId)
                 .subscribe(
                     data => {
                         var document=JSON.parse(data['_body']);
-                        document['resource'].id=document['@id'];
                         document['resource'].type="Period";
-                        resolve(document['resource'])
+                        document['resource']['@id']=document['@id'];
+                        resolve(document)
                     },
                     err => console.error(err)
                 );
