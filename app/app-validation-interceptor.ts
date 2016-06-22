@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {ValidationInterceptor} from "idai-components-2/idai-components-2";
-import {Entity} from "idai-components-2/idai-components-2"
+import {Resource} from "idai-components-2/idai-components-2"
 
 /**
  * @author Daniel de Oliveira
@@ -8,7 +8,7 @@ import {Entity} from "idai-components-2/idai-components-2"
 @Injectable()
 export class AppValidationInterceptor extends ValidationInterceptor {
 
-    interceptSave(object:Entity) : string {
+    validate(resource:Resource) : string {
         return undefined
     }
 }

@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
 import {DocumentEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
 import {Datastore} from 'idai-components-2/idai-components-2'
-import {DOCS} from "./sample-objects";
 
 
 /**
@@ -33,17 +32,9 @@ export class ObjectEditWrapperComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadSampleData();
-        
         this.datastore.get("/period/"+this.id).then((document)=> {
             this.setConfig();
             this.selectedDocument = JSON.parse(JSON.stringify(document));
         });
-    }
-
-    loadSampleData(): void {
-        for (var doc of DOCS) {
-            this.datastore.update(doc);
-        }
     }
 }

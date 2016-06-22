@@ -1,4 +1,4 @@
-import {Entity} from "idai-components-2/idai-components-2";
+import {Document} from "idai-components-2/idai-components-2";
 import {Datastore} from "idai-components-2/idai-components-2";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs/Observable";
@@ -12,44 +12,54 @@ export class RestDatastore implements Datastore {
 
     constructor(private http:Http) { }
 
-    private static IDAIFIELDOBJECT = 'idai-field-object';
-    private static FULLTEXT = 'fulltext';
-
     private db: Promise<any>;
-    private observers = [];
-    private objectCache: { [id: string]: Entity } = {};
+    private docCache: { [id: string]: Document } = {};
 
-    public getUnsyncedObjects(): Observable<Entity> {
+    public getUnsyncedObjects(): Observable<Document> {
         return undefined;
     }
-    
-    public create(object:Entity):Promise<string> {
 
+    // not yet implemented
+    public create(doc:Document):Promise<string> {
         return new Promise((resolve, reject) => {
             resolve();
         });
     }
 
-    public update(document:Entity):Promise<any> {
-        this.objectCache[document['resource']['@id']]=document;
+    /**
+     * @param doc
+     * @returns {Promise<T>}
+     */
+    public update(doc:Document):Promise<any> {
+
+        const resourceId=doc['resource']['@id'];
+
         return new Promise((resolve, reject) => {
-            resolve();
+
+            this.http.put("/data"+resourceId,JSON.stringify(doc))
+                .subscribe(
+                    data => {
+                        this.docCache[resourceId]=doc;
+                        resolve()
+                    },
+                    err => {
+                        reject(err);
+                    }
+                );
         });
     }
 
-    public refresh(id:string):Promise<Entity>  {
-
-        return this.fetchObject(id);
+    // TODO check if this method gets ever used (check all usages of Datastore.refresh).
+    public refresh(id:string):Promise<Document>  {
+        return this.fetchObjectViaHttp(id);
     }
 
-    public get(resourceId:string):Promise<Entity> {
+    public get(resourceId:string):Promise<Document> {
 
-        if (this.objectCache[resourceId]) {
-            console.log("get cached object")
-            return new Promise((resolve, reject) => resolve(this.objectCache[resourceId]));
+        if (this.docCache[resourceId]) {
+            return new Promise((resolve, reject) => resolve(this.docCache[resourceId]));
         } else {
-            console.log("fetch object")
-            return this.fetchObject(resourceId);
+            return this.fetchObjectViaHttp(resourceId);
         }
     }
 
@@ -69,14 +79,15 @@ export class RestDatastore implements Datastore {
         });
     }
 
-    
-    public find(query:string):Promise<Entity[]> {
+
+    // TODO implement find via http
+    public find(query:string):Promise<Document[]> {
 
         query = query.toLowerCase();
 
-        var results : Entity[] = [];
-        for (var i in this.objectCache) {
-            if (this.objectCache[i].identifier.indexOf(query)!=-1) results.push(this.objectCache[i]);
+        var results : Document[] = [];
+        for (var i in this.docCache) {
+            if (this.docCache[i]['resource']['@id'].indexOf(query)!=-1) results.push(this.docCache[i]);
         }
         console.log("results ",results)
 
@@ -85,14 +96,14 @@ export class RestDatastore implements Datastore {
         });
     }
 
-    public all():Promise<Entity[]> {
+    public all():Promise<Document[]> {
 
-        return new Promise<Entity[]>((resolve, reject) => {
+        return new Promise<Document[]>((resolve, reject) => {
             resolve();
         });
     }
 
-    private fetchObject(resourceId:string): Promise<Entity> {
+    private fetchObjectViaHttp(resourceId:string): Promise<Document> {
 
         return new Promise((resolve, reject) => {
 
@@ -113,14 +124,14 @@ export class RestDatastore implements Datastore {
         });
     }
 
-    private saveObject(object:Entity):Promise<any> {
+    private saveObject(doc:Document):Promise<any> {
 
         return new Promise((resolve, reject) => {
             resolve();
         });
     }
 
-    private saveFulltext(object:Entity):Promise<any> {
+    private saveFulltext(doc:Document):Promise<any> {
 
         return new Promise((resolve, reject) => {
             resolve();
