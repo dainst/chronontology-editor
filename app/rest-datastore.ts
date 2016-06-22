@@ -106,10 +106,10 @@ export class RestDatastore implements Datastore {
                         document['resource']['@id']=document['@id']; // TODO necessary as long as resource id is not fully supported by jeremy
                         resolve(document)
                     },
-                    err => console.error(err)
+                    err => {
+                        reject(err);
+                    }
                 );
-
-
         });
     }
 
