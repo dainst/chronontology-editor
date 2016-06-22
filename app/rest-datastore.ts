@@ -67,20 +67,21 @@ export class RestDatastore implements Datastore {
     }
 
 
+    /**
+     * TODO currently works for query strings which are resource ids.
+     * A full implementation is possible when jeremy fully supports partial search queries.
+     *
+     * @param query
+     * @returns {Promise<T>}
+     */
     public find(query:string):Promise<Document[]> {
 
         return new Promise((resolve, reject) => {
 
-            var url= "/data";
-            this.http.get(url+query)
-                .subscribe(
-                    data => {
-                        const document=JSON.parse(data['_body'])
-                        document['resource']['@id']=document['@id']; // TODO necessary as long as resource id is not fully supported by jeremy
-                        resolve([document])
-                    },
-                    err => reject(err)
-                );
+            this.fetchObjectViaHttp(query).then(
+                (document)=>resolve([document]),
+                (err)=>reject(err)
+            );
         });
     }
 
