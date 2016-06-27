@@ -24,6 +24,14 @@ export class RestDatastore implements Datastore {
     }
 
     /**
+     * NOT IMPLEMENTED
+     * @returns {undefined}
+     */
+    public documentChangesNotifications():Observable<Document> {
+        return undefined;
+    }
+
+    /**
      * @param doc
      * @returns {Promise<T>}
      */

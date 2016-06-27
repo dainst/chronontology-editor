@@ -16,7 +16,7 @@ var proxy = require('proxy-middleware');
 // compile sass and concatenate to single css file in build dir
 gulp.task('convert-sass', function() {
 
-	return gulp.src('lib/scss/app.scss')
+	return gulp.src('scss/app.scss')
 	  	.pipe(sass({includePaths: [
 			'node_modules/bootstrap-sass/assets/stylesheets/',
 			'node_modules/mdi/scss/'
@@ -58,7 +58,7 @@ gulp.task('compile',['convert-sass'], function () {
         .pipe(gulp.dest('fonts'));
 
     // templates
-    gulp.src('node_modules/idai-components-2/lib/templates/**/*').pipe(gulp.dest('lib/templates/'));
+    gulp.src('node_modules/idai-components-2/src/templates/**/*').pipe(gulp.dest('src/templates/'));
 
     // sources
     gulp

@@ -2,7 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
 import {DocumentEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
 import {Datastore} from 'idai-components-2/idai-components-2'
-
+import {SaveService} from 'idai-components-2/idai-components-2'
+import {Messages} from "idai-components-2/idai-components-2";
+import {M} from "./m";
 
 /**
  * @author: Daniel de Oliveira
@@ -21,7 +23,9 @@ export class ObjectEditWrapperComponent implements OnInit {
     constructor(
         private datastore: Datastore,
         private routeSegment: RouteSegment,
-        private configLoader:ConfigLoader) {
+        private configLoader: ConfigLoader,
+        private saveService: SaveService,
+        private messages: Messages) {
 
         this.id=routeSegment.getParam('id');
     }
@@ -35,6 +39,16 @@ export class ObjectEditWrapperComponent implements OnInit {
         this.datastore.get("/period/"+this.id).then((document)=> {
             this.setConfig();
             this.selectedDocument = JSON.parse(JSON.stringify(document));
+        });
+    }
+
+    public save(doc) {
+        this.saveService.save(doc).then(()=>{
+            console.log("success");
+            this.messages.add(M.SAVE_SUCCESS);
+        },(err)=>{
+            console.error("err ",err);
+            this.messages.add(err);
         });
     }
 }

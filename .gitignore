@@ -1,7 +1,7 @@
 css
 node_modules
 typings
-lib
+src
 fonts
 npm-debug.log
 *iml

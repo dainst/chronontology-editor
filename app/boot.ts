@@ -4,17 +4,18 @@
 import {bootstrap}    from '@angular/platform-browser-dynamic'
 import {AppComponent} from './app.component'
 import {HTTP_PROVIDERS} from '@angular/http';
-import {provide, enableProdMode} from '@angular/core';
+import {provide} from '@angular/core';
 import {Datastore} from "idai-components-2/idai-components-2";
 import {ReadDatastore} from "idai-components-2/idai-components-2";
 import {Messages} from "idai-components-2/idai-components-2";
 import {RestDatastore} from "./rest-datastore";
 import {ConfigLoader} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
-import {LoadAndSaveService} from "idai-components-2/idai-components-2";
+import {SaveService} from "idai-components-2/idai-components-2";
 import {ValidationInterceptor} from "idai-components-2/idai-components-2";
 import {AppValidationInterceptor} from "./app-validation-interceptor";
 import {MD} from "idai-components-2/idai-components-2";
+import {M} from "./m";
 import { ROUTER_PROVIDERS,RouteSegment } from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
@@ -28,7 +29,7 @@ bootstrap(AppComponent, [
     provide(ConfigLoader, {useClass: ConfigLoader}),
     provide(PersistenceManager, {useClass: PersistenceManager}),
     provide(ConfigLoader, {useClass: ConfigLoader}),
-    provide(LoadAndSaveService, {useClass: LoadAndSaveService}),
+    provide(SaveService, {useClass: SaveService}),
     provide(ValidationInterceptor, {useClass: AppValidationInterceptor}),
-    provide(MD, {useClass: MD})
+    provide(MD, {useClass: M})
 ]);

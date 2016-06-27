@@ -1,7 +1,25 @@
-<div class="container-fluid" id="app">
-    <div class="row">
-        <div class="col-md-12">
+<div class="container-fluid" id="document-edit-wrapper" class="row">
+
+    <section class="col-md-12">
+
+        <header *ngIf="selectedDocument">
+            <h1 id="object-type-heading">
+                <button class="btn btn-default pull-right" id="document-edit-button-save-document"
+                        (click)="save(selectedDocument,false)">Speichern</button>
+                <span class="mdi mdi-blur"></span>
+                <div *ngIf="selectedDocument['resource']['type']">
+                    [{{selectedDocument['resource'].type}}] {{selectedDocument['resource']['@id']}}
+                </div>
+                <div *ngIf="!selectedDocument['resource']['type']">
+                    Neues Objekt
+                </div>
+            </h1>
+        </header>
+
+
+        <main>
             <document-edit [(document)]="selectedDocument" [primary]="'@id'"></document-edit>
-        </div>
-    </div>
+        </main>
+
+    </section>
 </div>
