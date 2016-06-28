@@ -11,9 +11,7 @@ import {Messages} from "idai-components-2/idai-components-2";
 import {RestDatastore} from "./rest-datastore";
 import {ConfigLoader} from "idai-components-2/idai-components-2";
 import {PersistenceManager} from "idai-components-2/idai-components-2";
-import {SaveService} from "idai-components-2/idai-components-2";
-import {ValidationInterceptor} from "idai-components-2/idai-components-2";
-import {AppValidationInterceptor} from "./app-validation-interceptor";
+import {DocumentEditChangeMonitor} from "idai-components-2/idai-components-2";
 import {MD} from "idai-components-2/idai-components-2";
 import {M} from "./m";
 import { ROUTER_PROVIDERS,RouteSegment } from '@angular/router';
@@ -28,8 +26,6 @@ bootstrap(AppComponent, [
     provide(Messages, { useClass: Messages }),
     provide(ConfigLoader, {useClass: ConfigLoader}),
     provide(PersistenceManager, {useClass: PersistenceManager}),
-    provide(ConfigLoader, {useClass: ConfigLoader}),
-    provide(SaveService, {useClass: SaveService}),
-    provide(ValidationInterceptor, {useClass: AppValidationInterceptor}),
+    provide(DocumentEditChangeMonitor, {useClass: DocumentEditChangeMonitor}),
     provide(MD, {useClass: M})
 ]);

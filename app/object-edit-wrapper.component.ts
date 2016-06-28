@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
 import {DocumentEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
 import {Datastore} from 'idai-components-2/idai-components-2'
-import {SaveService} from 'idai-components-2/idai-components-2'
+import {PersistenceManager} from 'idai-components-2/idai-components-2'
 import {Messages} from "idai-components-2/idai-components-2";
 import {M} from "./m";
 
@@ -24,7 +24,7 @@ export class ObjectEditWrapperComponent implements OnInit {
         private datastore: Datastore,
         private routeSegment: RouteSegment,
         private configLoader: ConfigLoader,
-        private saveService: SaveService,
+        private persistenceManager: PersistenceManager,
         private messages: Messages) {
 
         this.id=routeSegment.getParam('id');
@@ -43,7 +43,7 @@ export class ObjectEditWrapperComponent implements OnInit {
     }
 
     public save(doc) {
-        this.saveService.save(doc).then(()=>{
+        this.persistenceManager.persist(doc).then(()=>{
             console.log("success");
             this.messages.add(M.SAVE_SUCCESS);
         },(err)=>{
