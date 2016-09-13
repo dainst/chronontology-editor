@@ -1,24 +1,32 @@
 {
-  "relations":[
+  "relations": [
     {
-      "field":"hasPart",
-      "inverse":"isPartOf",
-      "label":"Has Part"
+      "name": "hasPart",
+      "inverse": "isPartOf",
+      "label": "Has Part",
+      "domain": ["Period"],
+      "range": ["Period"]
     },
     {
-      "field":"isPartOf",
-      "inverse":"hasPart",
-      "label":"Is part of"
+      "name": "isPartOf",
+      "inverse": "hasPart",
+      "label": "Is part of",
+      "domain": ["Period"],
+      "range": ["Period"]
     },
     {
-      "field":"follows",
-      "inverse":"isFollowedBy",
-      "label":"Follows"
+      "name": "follows",
+      "inverse": "isFollowedBy",
+      "label": "Follows",
+      "domain": ["Period"],
+      "range": ["Period"]
     },
     {
-      "field":"isFollowedBy",
-      "inverse":"follows",
-      "label":"Is followed by"
+      "name": "isFollowedBy",
+      "inverse": "follows",
+      "label": "Is followed by",
+      "domain": ["Period"],
+      "range": ["Period"]
     }
   ]
 }

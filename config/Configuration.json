@@ -4,22 +4,22 @@
       "type": "Period",
       "fields": [
         {
-          "field": "names",
+          "name": "names",
           "localized" : "true",
           "inner" : {
-            "array" : true
+            "inputType" : "string_input"
           }
         },
         {
-          "field": "description",
-          "multiline" : "true"
+          "name": "description",
+          "inputType": "text"
         },
         {
-          "field": "provenance"
+          "name": "provenance"
         },
         {
-          "field":"types",
-          "array":true
+          "name": "types",
+          "inputType" : "string_inputs"
         }
       ]
     }
