@@ -37,11 +37,11 @@ export class RestDatastore implements Datastore {
      */
     public update(doc:Document):Promise<any> {
 
-        const resourceId=doc['resource']['@id'];
+        const resourceId = doc.resource.id;
 
         return new Promise((resolve, reject) => {
 
-            this.http.put("/data"+resourceId,JSON.stringify(doc))
+            this.http.put("/data/period/" + resourceId,JSON.stringify(doc))
                 .subscribe(
                     data => {
                         resolve()
@@ -104,14 +104,13 @@ export class RestDatastore implements Datastore {
 
         return new Promise((resolve, reject) => {
 
-            var url= "data";
+            var url = "data/period/";
 
             this.http.get(url+resourceId)
                 .subscribe(
                     data => {
-                        var document=JSON.parse(data['_body']);
-                        document['resource'].type="Period";
-                        document['resource']['@id']=document['@id']; // TODO necessary as long as resource id is not fully supported by jeremy
+                        var document = JSON.parse(data['_body']);
+                        document.resource.type="Period";
                         resolve(document)
                     },
                     err => {
@@ -119,19 +118,5 @@ export class RestDatastore implements Datastore {
                     }
                 );
         });
-    }
-
-    private saveObject(doc:Document):Promise<any> {
-
-        return new Promise((resolve, reject) => {
-            resolve();
-        });
-    }
-
-    private saveFulltext(doc:Document):Promise<any> {
-
-        return new Promise((resolve, reject) => {
-            resolve();
-        })
     }
 }

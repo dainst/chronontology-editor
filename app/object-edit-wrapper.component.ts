@@ -31,7 +31,7 @@ export class ObjectEditWrapperComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.datastore.get("/period/"+this.id).then((document)=> {
+        this.datastore.get(this.id).then((document)=> {
             this.setConfig();
             this.selectedDocument = JSON.parse(JSON.stringify(document));
         });
