@@ -23,13 +23,14 @@
         System.config({
 
             map: {
+                'app': 'app',
                 json: 'app/util/systemjs-json-plugin',
                 '@angular/platform-browser-dynamic': 'node_modules/@angular/platform-browser-dynamic',
                 '@angular/platform-browser': 'node_modules/@angular/platform-browser',
                 '@angular/http': 'node_modules/@angular/http',
                 '@angular/common': 'node_modules/@angular/common',
                 '@angular/core': 'node_modules/@angular/core',
-                '@angular/router-deprecated': 'node_modules/@angular/router-deprecated',
+                '@angular/forms': 'node_modules/@angular/forms',
                 '@angular/router': 'node_modules/@angular/router',
                 '@angular/compiler': 'node_modules/@angular/compiler',
                 'rxjs': 'node_modules/rxjs',
@@ -37,11 +38,12 @@
             },
             packages: {
                 'lib/ts': {
-                    format: 'register',
+                    format: 'cjs',
                     defaultExtension: 'js'
                 },
                 'app': {
-                    format: 'register',
+                    main: 'main.js',
+                    format: 'cjs',
                     defaultExtension: 'js'
                 },
                 node_modules: {
@@ -55,19 +57,18 @@
                         }
                     }
                 },
-                '@angular/core'                    : {main: 'index.js'},
-                '@angular/common'                  : {main: 'index.js'},
-                '@angular/compiler'                : {main: 'index.js'},
-                '@angular/router'                  : {main: 'index.js'},
-                '@angular/platform-browser'        : {main: 'index.js'},
-                '@angular/platform-browser-dynamic': {main: 'index.js'},
-                '@angular/router-deprecated' :        {main: 'index.js'},
-                '@angular/http' :             {main: 'index.js'},
+                '@angular/core'                    : {main: 'bundles/core.umd.min.js'},
+                '@angular/common'                  : {main: 'bundles/common.umd.min.js'},
+                '@angular/compiler'                : {main: 'bundles/compiler.umd.min.js'},
+                '@angular/router'                  : {main: 'bundles/router.umd.min.js'},
+                '@angular/platform-browser'        : {main: 'bundles/platform-browser.umd.min.js'},
+                '@angular/platform-browser-dynamic': {main: 'bundles/platform-browser-dynamic.umd.min.js'},
+                '@angular/forms'                   : {main: 'bundles/forms.umd.min.js'},
+                '@angular/http'                    : {main: 'bundles/http.umd.min.js'},
                 'rxjs'                             : {main: 'index.js'}
             }
         });
-        System.import('app/boot')
-                .then(null, console.error.bind(console));
+        System.import('app').catch(function(err){ console.error(err); });
     </script>
 
 </head>

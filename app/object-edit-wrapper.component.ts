@@ -1,19 +1,15 @@
 import {Component, OnInit} from '@angular/core';
-import {ROUTER_DIRECTIVES,RouteSegment} from '@angular/router';
-import {DocumentEditComponent,ConfigLoader} from 'idai-components-2/idai-components-2';
-import {Datastore} from 'idai-components-2/idai-components-2'
-import {PersistenceManager} from 'idai-components-2/idai-components-2'
-import {Messages} from "idai-components-2/idai-components-2";
+import {ActivatedRoute} from '@angular/router';
+import {Messages, ConfigLoader, PersistenceManager, Datastore} from "idai-components-2/idai-components-2";
 import {M} from "./m";
 
 /**
  * @author: Daniel de Oliveira
  */
 @Component({
+    moduleId: module.id,
     selector: 'object-edit-wrapper',
-    templateUrl: 'templates/object-edit-wrapper.html',
-
-    directives: [ ROUTER_DIRECTIVES, DocumentEditComponent ]
+    templateUrl: '../templates/object-edit-wrapper.html'
 })
 export class ObjectEditWrapperComponent implements OnInit {
 
@@ -22,17 +18,16 @@ export class ObjectEditWrapperComponent implements OnInit {
 
     constructor(
         private datastore: Datastore,
-        private routeSegment: RouteSegment,
+        private route: ActivatedRoute,
         private configLoader: ConfigLoader,
         private persistenceManager: PersistenceManager,
         private messages: Messages) {
 
-        this.id=routeSegment.getParam('id');
+        this.id = this.route.snapshot.params['id'];
     }
 
-    private setConfig(){
-        this.configLoader.setProjectConfiguration('config/Configuration.json');
-        this.configLoader.setRelationsConfiguration('config/Relations.json');
+    private setConfig() {
+        this.configLoader.setConfigurationPaths('config/Configuration.json', 'config/Relations.json');
     }
 
     ngOnInit() {
