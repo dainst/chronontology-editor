@@ -20,7 +20,8 @@ export class M { // = Messages Dictionary.
     constructor() {
         this.msgs[M.SAVE_SUCCESS]={
             content: 'Das Objekt wurde erfolgreich gespeichert.',
-            level: 'success'
+            level: 'success',
+            params: []
         };
     }
 }
