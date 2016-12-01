@@ -27,6 +27,20 @@
       "label": "Is followed by",
       "domain": ["Period"],
       "range": ["Period"]
+    },
+    {
+      "name": "hasSense",
+      "inverse": "isSenseOf",
+      "label": "Has senses",
+      "domain": ["Period"],
+      "range": ["Period"]
+    },
+    {
+      "name": "isSenseOf",
+      "inverse": "hasSense",
+      "label": "Is a sense of",
+      "domain": ["Period"],
+      "range": ["Period"]
     }
   ]
 }
