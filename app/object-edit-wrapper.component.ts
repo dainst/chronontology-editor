@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Messages, ConfigLoader, PersistenceManager, Datastore} from "idai-components-2/idai-components-2";
+import {Datastore} from "idai-components-2/datastore";
+import {Messages} from "idai-components-2/messages";
+import {PersistenceManager} from "idai-components-2/persist";
+import {ConfigLoader} from "idai-components-2/configuration";
 import {M} from "./m";
 
 /**
@@ -27,7 +30,7 @@ export class ObjectEditWrapperComponent implements OnInit {
     }
 
     private setConfig() {
-        this.configLoader.setConfigurationPaths('config/Configuration.json', 'config/Relations.json');
+        this.configLoader.load('config/Configuration.json',[],[]);
     }
 
     ngOnInit() {

@@ -18,6 +18,8 @@ gulp.task('convert-sass', function() {
 
 	return gulp.src('scss/app.scss')
 	  	.pipe(sass({includePaths: [
+			'node_modules/mdbootstrap/sass/',
+			'node_modules/idai-components-2/src/scss',
 			'node_modules/bootstrap-sass/assets/stylesheets/',
 			'node_modules/mdi/scss/'
 		], precision: 8}))
