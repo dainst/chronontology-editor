@@ -1,5 +1,9 @@
 # Chronontology Editor
 
+NOTE that this repository is no longer used. 
+
+The new editor is part of https://github.com/dainst/chronontology-frontend.
+
 ## Getting started
  
 ```
